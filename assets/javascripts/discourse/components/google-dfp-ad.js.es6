@@ -193,7 +193,7 @@ function destroySlot(divId) {
   }
 }
 
-function loadGoogle() {
+function loadDiDNA() {
   /**
    * Refer to this article for help:
    * https://support.google.com/admanager/answer/4578089?hl=en
@@ -210,26 +210,10 @@ function loadGoogle() {
   // The boilerplate code
   let dfpSrc =
     ("https:" === document.location.protocol ? "https:" : "http:") +
-    "//securepubads.g.doubleclick.net/tag/js/gpt.js";
+    "//storage.googleapis.com/didna_hb/spg/mixedmartialarts/didna_config.js";
   _promise = loadScript(dfpSrc, { scriptTag: true }).then(function () {
     _loaded = true;
-    if (window.googletag === undefined) {
-      // eslint-disable-next-line no-console
-      console.log("googletag is undefined!");
-    }
-
-    window.googletag.cmd.push(function () {
-      // Infinite scroll requires SRA:
-      window.googletag.pubads().enableSingleRequest();
-
-      // we always use refresh() to fetch the ads:
-      window.googletag.pubads().disableInitialLoad();
-
-      window.googletag.enableServices();
-    });
   });
-
-  window.googletag = window.googletag || { cmd: [] };
 
   return _promise;
 }
@@ -268,11 +252,7 @@ export default AdComponent.extend({
   @discourseComputed("placement", "postNumber")
   divId(placement, postNumber) {
     let slotNum = getNextSlotNum();
-    if (postNumber) {
-      return `div-gpt-ad-${slotNum}-${placement}-${postNumber}`;
-    } else {
-      return `div-gpt-ad-${slotNum}-${placement}`;
-    }
+      return `leaderboard_${slotNum}`;
   },
 
   @discourseComputed("placement", "showAd")
@@ -380,27 +360,19 @@ export default AdComponent.extend({
       return;
     }
 
-    loadGoogle().then(() => {
-      this.set("loadedGoogletag", true);
-      this.set("lastAdRefresh", new Date());
+    window.adsToLoad = window.adsToLoad || [];
+		window.adsToLoad.push({
+			divId: this.get( "divId" ),
+			placement: this.get( "placement" ),
+			siteSettings: this.siteSettings,
+			mobileView: this.site.mobileView,
+			width: this.get( "width" ),
+			height: this.get( "height" ),
+			currentCategorySlug: this.get( "currentCategorySlug" )
+		});
 
-      window.googletag.cmd.push(() => {
-        let slot = defineSlot(
-          this.get("divId"),
-          this.get("placement"),
-          this.siteSettings,
-          this.site.mobileView,
-          this.get("width"),
-          this.get("height"),
-          this.get("currentCategorySlug") || "0"
-        );
-        if (slot && slot.ad) {
-          // Display has to be called before refresh
-          // and after the slot div is in the page.
-          window.googletag.display(this.get("divId"));
-          window.googletag.pubads().refresh([slot.ad]);
-        }
-      });
+    loadDiDNA().then(() => {
+
     });
   },
 
