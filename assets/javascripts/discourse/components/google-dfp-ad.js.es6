@@ -316,40 +316,6 @@ export default AdComponent.extend({
     return this.isNthPost(parseInt(this.siteSettings.dfp_nth_post_code, 10));
   },
 
-  // 3 second delay between calls to refresh ads in a component.
-  // Ember often calls updated() more than once, and *sometimes*
-  // updated() is called after _initGoogleDFP().
-  shouldRefreshAd() {
-    const lastAdRefresh = this.get("lastAdRefresh");
-    if (!lastAdRefresh) {
-      return true;
-    }
-    return new Date() - lastAdRefresh > 3000;
-  },
-
-  @on("didUpdate")
-  updated() {
-    if (this.get("listLoading") || !this.shouldRefreshAd()) {
-      return;
-    }
-
-    let slot = ads[this.get("divId")];
-    if (!(slot && slot.ad)) {
-      return;
-    }
-
-    let ad = slot.ad,
-      categorySlug = this.get("currentCategorySlug");
-
-    if (this.get("loadedGoogletag")) {
-      this.set("lastAdRefresh", new Date());
-      window.googletag.cmd.push(() => {
-        ad.setTargeting("discourse-category", categorySlug || "0");
-        window.googletag.pubads().refresh([ad]);
-      });
-    }
-  },
-
   @on("didInsertElement")
   _initGoogleDFP() {
     if (Ember.testing) {
