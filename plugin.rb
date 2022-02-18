@@ -12,6 +12,11 @@ add_admin_route 'admin.adplugin.house_ads.title', 'houseAds'
 
 enabled_site_setting :discourse_adplugin_enabled
 
+extend_content_security_policy(
+  script_src: ['https://domain.com/script.js', 'https://your-cdn.com/'],
+  object_src: ['https://domain.com/flash-content']
+)
+
 module ::AdPlugin
   def self.plugin_name
     'discourse-adplugin'.freeze
@@ -27,6 +32,10 @@ module ::AdPlugin
 
   def self.pstore_delete(key)
     PluginStore.remove(AdPlugin.plugin_name, key)
+  end
+
+  def extend_content_security_policy(extension)
+    csp_extensions << extension
   end
 end
 
@@ -46,6 +55,9 @@ after_initialize do
     return false if object.topic.tags.empty?
     !(SiteSetting.no_ads_for_tags.split('|') & object.topic.tags.map(&:name)).empty?
   end
+
+  extend_content_security_policy(
+    worker_src: SiteSetting.content_security_policy_worker_src) if SiteSetting.content_security_policy_worker_src.present?
 
   class ::AdstxtController < ::ApplicationController
     skip_before_action :preload_json, :check_xhr, :redirect_to_login_if_required

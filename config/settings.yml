@@ -34,6 +34,11 @@ ad_plugin:
     client: false
     default: ""
     textarea: true
+  content_security_policy_worker_src:
+    default: ""
+    type: list
+    list_type: simple
+    client: true
 
 adsense_plugin:
   adsense_publisher_code:
