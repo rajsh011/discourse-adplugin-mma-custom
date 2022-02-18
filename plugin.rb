@@ -12,11 +12,6 @@ add_admin_route 'admin.adplugin.house_ads.title', 'houseAds'
 
 enabled_site_setting :discourse_adplugin_enabled
 
-extend_content_security_policy(
-  script_src: ['https://domain.com/script.js', 'https://your-cdn.com/'],
-  object_src: ['https://domain.com/flash-content']
-)
-
 module ::AdPlugin
   def self.plugin_name
     'discourse-adplugin'.freeze
