@@ -210,7 +210,7 @@ function loadDiDNA() {
   // The boilerplate code
   let dfpSrc =
     ("https:" === document.location.protocol ? "https:" : "http:") +
-    "//storage.googleapis.com/didna_hb/spg/mixedmartialarts/didna_config.js";
+    "//storage.googleapis.com/didna_hb/spg/sportspublishersgroupmixedmartialarts/didna_config.js";
   _promise = loadScript(dfpSrc, { scriptTag: true }).then(function () {
     _loaded = true;
   });
@@ -252,7 +252,7 @@ export default AdComponent.extend({
   @discourseComputed("placement", "postNumber")
   divId(placement, postNumber) {
     let slotNum = getNextSlotNum();
-      return `leaderboard_${slotNum}`;
+      return `didna_slot_${slotNum}`;
   },
 
   @discourseComputed("placement", "showAd")
@@ -325,17 +325,31 @@ export default AdComponent.extend({
     if (!this.get("showAd")) {
       return;
     }
+    var didna = window.didna || {};
+    didna.cmd = didna.cmd || [];
+    var didna_counter = window.didna_counter || 0;
 
-    window.adsToLoad = window.adsToLoad || [];
-		window.adsToLoad.push({
-			divId: this.get( "divId" ),
-			placement: this.get( "placement" ),
-			siteSettings: this.siteSettings,
-			mobileView: this.site.mobileView,
-			width: this.get( "width" ),
-			height: this.get( "height" ),
-			currentCategorySlug: this.get( "currentCategorySlug" )
-		});
+    didna.cmd.push(function () {
+      didna.createAdUnits({
+          id: this.get( "divId" ),
+          adUnitPath: "/170737076/display/SportsPublishersGroup/mixedmartialarts.com",
+          size: [728, 90],
+          sizeMap: [
+              [
+                  [728, 0],
+                  [[728, 90],[468, 60],],
+              ],
+              [
+                  [468, 0],[468, 60],
+              ],
+              [
+                  [320, 0],
+                  [[320, 50],[320, 100],],
+              ],
+          ],
+      });
+      didna_counter++;
+  });
 
     loadDiDNA().then(() => {
 
