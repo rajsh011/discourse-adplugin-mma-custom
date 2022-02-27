@@ -2,8 +2,8 @@ import AdComponent from "discourse/plugins/discourse-adplugin/discourse/componen
 import discourseComputed, { on } from "discourse-common/utils/decorators";
 import loadScript from "discourse/lib/load-script";
 
-let _loaded = false,
-  _promise = null,
+let _didnaLoaded = false,
+  _didnaPromise = null,
   ads = {},
   nextSlotNum = 1,
   renderCounts = {};
@@ -36,15 +36,6 @@ function keyParse(word) {
   key = key.replace(/['"]+/g, "");
   key = key.split("\n");
   return key;
-}
-
-// This should call adslot.setTargeting(key for that location, value for that location)
-function custom_targeting(key_array, value_array, adSlot) {
-  for (let i = 0; i < key_array.length; i++) {
-    if (key_array[i]) {
-      adSlot.setTargeting(key_array[i], valueParse(value_array[i]));
-    }
-  }
 }
 
 const DESKTOP_SETTINGS = {
@@ -138,59 +129,19 @@ function getWidthAndHeight(placement, settings, isMobile) {
 }
 
 function defineSlot(
-  divId,
   placement,
   settings,
-  isMobile,
-  width,
-  height,
-  categoryTarget
+  isMobile
 ) {
-  if (!settings.dfp_publisher_id) {
-    return;
-  }
 
-  if (ads[divId]) {
-    return ads[divId];
-  }
-
-  let ad, config, publisherId;
+  let ad, config;
 
   if (isMobile) {
-    publisherId = settings.dfp_publisher_id_mobile || settings.dfp_publisher_id;
     config = MOBILE_SETTINGS[placement];
   } else {
-    publisherId = settings.dfp_publisher_id;
     config = DESKTOP_SETTINGS[placement];
   }
-
-  ad = window.googletag.defineSlot(
-    "/" + publisherId + "/" + settings[config.code],
-    [width, height],
-    divId
-  );
-
-  custom_targeting(
-    keyParse(settings[config.targeting_keys]),
-    keyParse(settings[config.targeting_values]),
-    ad
-  );
-
-  if (categoryTarget) {
-    ad.setTargeting("discourse-category", categoryTarget);
-  }
-
-  ad.addService(window.googletag.pubads());
-
-  ads[divId] = { ad, width, height };
-  return ads[divId];
-}
-
-function destroySlot(divId) {
-  if (ads[divId] && window.googletag) {
-    window.googletag.destroySlots([ads[divId].ad]);
-    delete ads[divId];
-  }
+  return "/" + settings[config.code];
 }
 
 function loadDiDNA() {
@@ -199,23 +150,23 @@ function loadDiDNA() {
    * https://support.google.com/admanager/answer/4578089?hl=en
    */
 
-  if (_loaded) {
+  if (_didnaLoaded) {
     return Ember.RSVP.resolve();
   }
 
-  if (_promise) {
-    return _promise;
+  if (_didnaPromise) {
+    return _didnaPromise;
   }
 
   // The boilerplate code
   let dfpSrc =
     ("https:" === document.location.protocol ? "https:" : "http:") +
     "//storage.googleapis.com/didna_hb/spg/sportspublishersgroupmixedmartialarts/didna_config.js";
-  _promise = loadScript(dfpSrc, { scriptTag: true }).then(function () {
-    _loaded = true;
+    _didnaPromise = loadScript(dfpSrc, { scriptTag: true }).then(function () {
+    _didnaLoaded = true;
   });
 
-  return _promise;
+  return _didnaPromise;
 }
 
 export default AdComponent.extend({
@@ -328,11 +279,13 @@ export default AdComponent.extend({
     var didna = window.didna || {};
     didna.cmd = didna.cmd || [];
     var didna_counter = window.didna_counter || 0;
+    var id = this.get( "divId" );
+    var adUnitPath = defineSlot(this.get("placement"), this.siteSettings, this.site.mobileView);
 
     didna.cmd.push(function () {
       didna.createAdUnits({
-          id: this.get( "divId" ),
-          adUnitPath: "/170737076/display/SportsPublishersGroup/mixedmartialarts.com",
+          id: id,
+          adUnitPath: adUnitPath,
           size: [728, 90],
           sizeMap: [
               [
@@ -362,10 +315,5 @@ export default AdComponent.extend({
     if (!this.get("showAd")) {
       return;
     }
-  },
-
-  @on("willDestroyElement")
-  cleanup() {
-    destroySlot(this.get("divId"));
   },
 });
