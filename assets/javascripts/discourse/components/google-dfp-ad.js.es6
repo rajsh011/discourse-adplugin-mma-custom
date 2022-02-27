@@ -172,7 +172,6 @@ function loadDiDNA() {
 export default AdComponent.extend({
   classNameBindings: ["adUnitClass"],
   classNames: ["google-dfp-ad"],
-  loadedGoogletag: false,
   refreshOnChange: null,
   lastAdRefresh: null,
   width: Ember.computed.alias("size.width"),
