@@ -144,6 +144,14 @@ function defineSlot(
   return "/" + settings[config.code];
 }
 
+function destroySlot( divId ) {
+  var didna = window.didna || {};
+  didna.cmd = didna.cmd || [];
+  didna.cmd.push(function () {
+      didna.removeAdUnits(divId);
+  });
+}
+
 function loadDiDNA() {
   /**
    * Refer to this article for help:
@@ -315,4 +323,10 @@ export default AdComponent.extend({
       return;
     }
   },
+
+  @on( "willDestroyElement" )
+	cleanup() {
+		destroySlot( this.get( "divId" ) );
+	},
+
 });
