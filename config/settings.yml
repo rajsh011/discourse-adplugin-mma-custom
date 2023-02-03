@@ -306,3 +306,29 @@ dfp_plugin:
     default: ""
     type: value_list
     client: true
+  dfp_side_ad_code:
+    client: true
+    default: ""
+    max: 100
+  dfp_side_ad_sizes:
+    client: true
+    default: "300*600 - half page ad"
+    type: list
+    choices: *dfp_choices
+  dfp_mobile_side_ad_code:  
+    client: true
+    default: ""
+    max: 100
+  dfp_mobile_side_ad_sizes:
+    client: true
+    default: "300*600 - half page ad"
+    type: list
+    choices: *dfp_choices
+  dfp_target_side_ad_key_code:
+    default: ""
+    type: value_list
+    client: true
+  dfp_target_side_ad_value_code:
+    default: ""
+    type: value_list
+    client: true

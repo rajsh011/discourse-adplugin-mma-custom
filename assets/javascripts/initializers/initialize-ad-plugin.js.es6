@@ -31,5 +31,6 @@ export default {
     messageBus.subscribe("/site/house-creatives", function (houseAdsSettings) {
       Site.currentProp("house_creatives", houseAdsSettings);
     });
+
   },
 };

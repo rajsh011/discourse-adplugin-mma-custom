@@ -1,0 +1,14 @@
+{{#if showAd}}
+<div class="side-ad-parent">
+    <div class="google-dfp-ad google-dfp-side-ad">
+    {{#if site.mobileView}}
+
+        <div class="google-dfp-ad-label" style={{adTitleStyleMobile}}><h2>{{i18n "adplugin.advertisement_label"}}</h2></div>
+        <div id={{divId}} class="didna-ad-unit" align="center"></div>
+    {{else}}
+        <div class="google-dfp-ad-label"><h2>{{i18n "adplugin.advertisement_label"}}</h2></div>
+        <div id={{divId}} class="didna-ad-unit" align="center"></div>
+    {{/if}}
+    </div>
+</div>
+{{/if}}
