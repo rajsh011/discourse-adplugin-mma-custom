@@ -1,6 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import Site from "discourse/models/site";
 
+
 export default {
   name: "initialize-ad-plugin",
   initialize(container) {
@@ -31,6 +32,29 @@ export default {
     messageBus.subscribe("/site/house-creatives", function (houseAdsSettings) {
       Site.currentProp("house_creatives", houseAdsSettings);
     });
+
+    //hide or show side ad section
+    document.addEventListener("DOMContentLoaded", function () {
+   
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // Check if the URL contains a specific substring
+        let el = document.querySelector(".side-ad-parent");
+
+        if (window.location.href.includes("/t/")) {
+          el.style.display = 'none';
+        } else {
+          el.style.display = 'block';
+        }
+      });
+    });
+    
+    const targetNode = document.querySelector("#main-outlet-wrapper");
+    if(targetNode){
+      observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+    }
+    
+  });
 
   },
 };

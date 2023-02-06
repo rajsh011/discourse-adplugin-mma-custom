@@ -260,16 +260,28 @@
     }
   }
 }
-
 #main-outlet-wrapper{
   grid-template-areas:
  "sidebar content adside" !important;
  }
+
+ .side-ad-outlet {
+  position: sticky;
+  top: 93px;
+  height: 600px;
+}
  .side-ad-parent {
-       position: sticky;
-       top: 93px;
-       width: 300px;
-       height: 600px;
-       border: 1px solid #ccc;
+        width: 300px;
+        height: 600px;
+        border: 1px solid #ccc;
        padding: 10px;
-     }
+      }
+
+.topic-navigation-ad-parent {
+  position: sticky;
+  top: 93px;
+  width: 300px;
+  height: 250px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}

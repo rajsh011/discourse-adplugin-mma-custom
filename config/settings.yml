@@ -332,3 +332,11 @@ dfp_plugin:
     default: ""
     type: value_list
     client: true
+  dfp_show_side_ad: 
+    default: true
+    client: true
+    description: "Show Right Side ad default is true"
+  dfp_show_topic_navigation_ad: 
+    default: true
+    client: true
+    description: "Show topic navigation ad default is true"

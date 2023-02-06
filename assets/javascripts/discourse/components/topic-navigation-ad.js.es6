@@ -6,16 +6,8 @@ import loadScript from "discourse/lib/load-script";
 export default AdComponent.extend({
 
     @discourseComputed()
-    hideClass(){
-      if(this.router.currentURL.indexOf("/t/") > -1) {
-          return 'hidden';
-      }else{
-        return 'show';
-      }
-    },
   divId() {
-   
-      return `skyscraper_1`;
+      return `rectangle_1`;
   },
   @discourseComputed(
     "siteSettings.dfp_publisher_id",
@@ -47,10 +39,12 @@ export default AdComponent.extend({
     showToGroups,
     showOnCurrentPage
     ) {
-      if(!this.siteSettings.dfp_show_side_ad){
+      //dont show if disabled from settings
+      if(!this.siteSettings.dfp_show_topic_navigation_ad){
         return false;
       }
-        if (window.location.href.indexOf("admin") > -1) {
+        //dont show in admin area
+      if (window.location.href.indexOf("admin") > -1) {
             return false;
             }
     return (
