@@ -5,14 +5,14 @@ import loadScript from "discourse/lib/load-script";
 
 export default AdComponent.extend({
 
-    @discourseComputed()
-    hideClass(){
-      if(this.router.currentURL.indexOf("/t/") > -1) {
-          return 'hidden';
-      }else{
-        return 'show';
-      }
-    }, 
+  @discourseComputed()
+  hideClass(){
+    if(this.router.currentURL.indexOf("/t/") > -1) {
+        return 'hidden';
+    }else{
+      return 'show';
+    }
+  }, 
   @discourseComputed()
   divId(){
       return "skyscraper_1";

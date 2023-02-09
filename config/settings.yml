@@ -151,6 +151,46 @@ adsense_plugin:
     client: true
     default: ""
     min: 1
+  adsense_side_ad_code:
+    client: true
+    default: ""
+    max: 100
+    regex: '^[\d]*$'
+  adsense_side_ad_ad_sizes:
+    client: true
+    default: "728*90 - leaderboard"
+    type: list
+    choices: *adsense_choices
+  adsense_mobile_side_ad_code:
+    client: true
+    default: ""
+    max: 100
+    regex: '^[\d]*$'
+  adsense_mobile_side_ad_ad_size:
+    client: true
+    default: "responsive"
+    type: list
+    choices: *adsense_choices
+  adsense_topic_navigation_ad_code:
+    client: true
+    default: ""
+    max: 100
+    regex: '^[\d]*$'
+  adsense_side_ad_ad_sizes:
+    client: true
+    default: "728*90 - leaderboard"
+    type: list
+    choices: *adsense_choices
+  adsense_mobile_topic_navigation_ad_code:
+    client: true
+    default: ""
+    max: 100
+    regex: '^[\d]*$'
+  adsense_mobile_topic_navigation_ad_ad_size:
+    client: true
+    default: "responsive"
+    type: list
+    choices: *adsense_choices
 
 dfp_plugin:
   dfp_publisher_id:
@@ -310,7 +350,7 @@ dfp_plugin:
     client: true
     default: ""
     max: 100
-  dfp_side_ad_sizes:
+  dfp_side_ad_ad_sizes:
     client: true
     default: "300*600 - half page ad"
     type: list
@@ -319,7 +359,7 @@ dfp_plugin:
     client: true
     default: ""
     max: 100
-  dfp_mobile_side_ad_sizes:
+  dfp_mobile_side_ad_ad_sizes:
     client: true
     default: "300*600 - half page ad"
     type: list
