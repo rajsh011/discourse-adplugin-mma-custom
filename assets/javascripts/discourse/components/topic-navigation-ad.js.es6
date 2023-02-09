@@ -7,7 +7,7 @@ export default AdComponent.extend({
 
     @discourseComputed()
   divId() {
-      return `rectangle_1`;
+      return "rectangle_1";
   },
   @discourseComputed(
     "siteSettings.dfp_publisher_id",

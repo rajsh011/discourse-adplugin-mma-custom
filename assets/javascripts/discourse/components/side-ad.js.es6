@@ -12,10 +12,10 @@ export default AdComponent.extend({
       }else{
         return 'show';
       }
-    },
-  divId() {
-   
-      return `skyscraper_1`;
+    }, 
+  @discourseComputed()
+  divId(){
+      return "skyscraper_1";
   },
   @discourseComputed(
     "siteSettings.dfp_publisher_id",
