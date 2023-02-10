@@ -72,6 +72,10 @@ const DESKTOP_SETTINGS = {
     code: "adsense_post_bottom_code",
     sizes: "adsense_post_bottom_ad_sizes",
   },
+  "side-ad":{
+    code :"adsense_side_ad_code",
+    sizes :"adsense_side_ad_ad_sizes"
+  }
 };
 
 const MOBILE_SETTINGS = {

@@ -285,3 +285,9 @@
   border: 1px solid #ccc;
   padding: 10px;
 }
+html {
+  overflow-x: hidden;
+}
+div#main-outlet .container.list-container, .regular.ember-view {
+  width: 100% !important;
+}
