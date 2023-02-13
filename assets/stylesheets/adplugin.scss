@@ -291,6 +291,9 @@ html {
 div#main-outlet .container.list-container, .regular.ember-view {
   width: 100% !important;
 }
+#topic-footer-buttons .topic-footer-main-buttons {
+  display: block !important;
+}
 #topic-footer-buttons {
   display: block;
   width: 100%;
