@@ -350,7 +350,7 @@ dfp_plugin:
     client: true
     default: ""
     max: 100
-  dfp_side_ad_ad_sizes:
+  dfp_side_ad_sizes:
     client: true
     default: "300*600 - half page ad"
     type: list
@@ -359,7 +359,7 @@ dfp_plugin:
     client: true
     default: ""
     max: 100
-  dfp_mobile_side_ad_ad_sizes:
+  dfp_mobile_side_ad_sizes:
     client: true
     default: "300*600 - half page ad"
     type: list
