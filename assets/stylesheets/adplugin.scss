@@ -291,3 +291,12 @@ html {
 div#main-outlet .container.list-container, .regular.ember-view {
   width: 100% !important;
 }
+#topic-footer-buttons {
+  display: block;
+  width: 100%;
+  max-width: 706px;
+}
+.suggested-topics-wrapper {
+  float: none !important;
+  width: 100%;
+}
