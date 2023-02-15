@@ -31,7 +31,7 @@ const adConfig = Ember.Object.create({
         "amazon_mobile_topic_above_post_stream_src_code",
       "topic-above-suggested": "amazon_mobile_topic_above_suggested_src_code",
       "side-ad":" amazon_mobile_side_ad_src_code",
-      "topic-navigation-ad": "amazon_topic_navigation_ad_src_code",
+      "topic-navigation-ad": "amazon_mobile_topic_navigation_ad_src_code",
     },
   },
   "carbonads-ad": {
