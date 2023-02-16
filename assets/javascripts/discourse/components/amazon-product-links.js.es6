@@ -147,64 +147,6 @@ export default AdComponent.extend({
       );
     }
     //edited
-    if (!mobileView && this.siteSettings.amazon_side_ad_src_code) {
-      data["side-ad"][
-        "user_input"
-      ] = this.siteSettings.amazon_side_ad_src_code;
-      data["side-ad"]["amazon_width"] = parseInt(
-        this.siteSettings.amazon_side_ad_ad_width_code,
-        10
-      );
-      data["side-ad"]["amazon_height"] = parseInt(
-        this.siteSettings.amazon_side_ad_ad_height_code,
-        10
-      );
-    }
-
-    if (mobileView && this.siteSettings.amazon_mobile_side_ad_src_code) {
-      data["side-ad"][
-        "user_input_mobile"
-      ] = this.siteSettings.amazon_mobile_side_ad_src_code;
-      data["side-ad"]["mobile_amazon_width"] = parseInt(
-        this.siteSettings.amazon_mobile_side_ad_ad_width_code,
-        10
-      );
-      data["side-ad"]["mobile_amazon_height"] = parseInt(
-        this.siteSettings.amazon_mobile_side_ad_ad_height_code,
-        10
-      );
-    }
-
-    if (!mobileView && this.siteSettings.amazon_topic_navigation_ad_src_code) {
-      data["topic-navigation-ad"][
-        "user_input"
-      ] = this.siteSettings.amazon_topic_navigation_ad_src_code;
-      data["topic-navigation-ad"]["amazon_width"] = parseInt(
-        this.siteSettings.amazon_topic_navigation_ad_width_code,
-        10
-      );
-      data["topic-navigation-ad"]["amazon_height"] = parseInt(
-        this.siteSettings.amazon_topic_navigation_ad_height_code,
-        10
-      );
-    }
-
-    if (mobileView && this.siteSettings.amazon_mobile_topic_navigation_src_code) {
-      data["topic-navigation-ad"][
-        "user_input_mobile"
-      ] = this.siteSettings.amazon_mobile_topic_navigation_src_code;
-      data["topic-navigation-ad"]["mobile_amazon_width"] = parseInt(
-        this.siteSettings.amazon_mobile_topic_navigation_ad_width_code,
-        10
-      );
-      data["topic-navigation-ad"]["mobile_amazon_height"] = parseInt(
-        this.siteSettings.amazon_mobile_topic_navigation_ad_height_code,
-        10
-      );
-    }
-
-
-
     this.set("user_input", data[placement]["user_input"]);
     this.set("amazon_width", data[placement]["amazon_width"]);
     this.set("amazon_height", data[placement]["amazon_height"]);
