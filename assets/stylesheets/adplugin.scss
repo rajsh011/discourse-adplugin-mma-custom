@@ -266,25 +266,24 @@
  }
 
  .side-ad-outlet {
-  position: sticky;
-  top: 93px;
-  height: 600px;
+   position: sticky;
+   top: 93px;
+   height: 600px;
 }
  .side-ad-parent {
-        width: 300px;
-        height: 600px;
-        border: 1px solid #ccc;
-       padding: 10px;
-      }
+    width: 300px;
+    height: 600px;
+    order: 1px solid #ccc;
+    padding: 10px;
+  }
 
-.topic-navigation-ad-parent {
-  position: sticky;
-  top: 93px;
-  width: 300px;
-  height: 250px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
+  .topic-navigation-ad-parent {
+    position: sticky;
+    top: 93px;
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    }
 html {
   overflow-x: hidden;
 }
