@@ -276,7 +276,6 @@
     order: 1px solid #ccc;
     padding: 10px;
   }
-
   .topic-navigation-ad-parent {
     position: sticky;
     top: 93px;
@@ -301,6 +300,15 @@ div#main-outlet .container.list-container, .regular.ember-view {
 .suggested-topics-wrapper {
   float: none !important;
   width: 100%;
+}
+.topic-navigation-ad-parent .didna-ad-unit {
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.side-ad-parent .didna-ad-unit {
+  max-height: 600px;
+  overflow: hidden;
 }
 @media only screen and (max-width: 768px) {
   .side-ad-outlet {
