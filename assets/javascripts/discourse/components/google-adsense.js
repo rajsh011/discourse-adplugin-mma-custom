@@ -1,6 +1,10 @@
 import AdComponent from "discourse/plugins/discourse-adplugin/discourse/components/ad-component";
 import discourseComputed, { observes } from "discourse-common/utils/decorators";
 import loadScript from "discourse/lib/load-script";
+import RSVP from "rsvp";
+import { scheduleOnce } from "@ember/runloop";
+import { isTesting } from "discourse-common/config/environment";
+import { htmlSafe } from "@ember/template";
 
 let _loaded = false,
   _promise = null,
@@ -38,7 +42,7 @@ function parseAdHeight(value) {
 
 function loadAdsense() {
   if (_loaded) {
-    return Ember.RSVP.resolve();
+    return RSVP.resolve();
   }
 
   if (_promise) {
@@ -142,7 +146,7 @@ export default AdComponent.extend({
   },
 
   _triggerAds() {
-    if (Ember.testing) {
+    if (isTesting()) {
       return; // Don't load external JS during tests
     }
 
@@ -167,7 +171,7 @@ export default AdComponent.extend({
       return;
     }
 
-    Ember.run.scheduleOnce("afterRender", this, this._triggerAds);
+    scheduleOnce("afterRender", this, this._triggerAds);
   },
 
   @observes("listLoading")
@@ -176,7 +180,7 @@ export default AdComponent.extend({
       return;
     } // already requested that this ad unit be populated
     if (!this.get("listLoading")) {
-      Ember.run.scheduleOnce("afterRender", this, this._triggerAds);
+      scheduleOnce("afterRender", this, this._triggerAds);
     }
   },
 
@@ -192,28 +196,24 @@ export default AdComponent.extend({
 
   @discourseComputed("placement", "showAd")
   classForSlot(placement, showAd) {
-    return showAd ? `adsense-${placement}`.htmlSafe() : "";
+    return showAd ? htmlSafe(`adsense-${placement}`) : "";
   },
 
   @discourseComputed("isResponsive", "isFluid")
   autoAdFormat(isResponsive, isFluid) {
-    return isResponsive
-      ? isFluid
-        ? "fluid".htmlSafe()
-        : "auto".htmlSafe()
-      : false;
+    return isResponsive ? htmlSafe(isFluid ? "fluid" : "auto") : false;
   },
 
   @discourseComputed("ad_width", "ad_height", "isResponsive")
   adWrapperStyle(w, h, isResponsive) {
-    return (isResponsive ? "" : `width: ${w}; height: ${h};`).htmlSafe();
+    return htmlSafe(isResponsive ? "" : `width: ${w}; height: ${h};`);
   },
 
   @discourseComputed("adWrapperStyle", "isResponsive")
   adInsStyle(adWrapperStyle, isResponsive) {
-    return `display: ${
-      isResponsive ? "block" : "inline-block"
-    }; ${adWrapperStyle}`.htmlSafe();
+    return htmlSafe(
+      `display: ${isResponsive ? "block" : "inline-block"}; ${adWrapperStyle}`
+    );
   },
 
   @discourseComputed("currentUser.trust_level")

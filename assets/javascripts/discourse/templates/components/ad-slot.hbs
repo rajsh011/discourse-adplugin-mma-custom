@@ -1,8 +1,12 @@
 {{#each adComponents as |adComponent|}}
-  {{component adComponent
+  {{component
+    adComponent
     placement=placement
     refreshOnChange=refreshOnChange
     category=category
     listLoading=listLoading
-    postNumber=postNumber}}
+    postNumber=postNumber
+    indexNumber=indexNumber
+    tagName=childTagName
+  }}
 {{/each}}

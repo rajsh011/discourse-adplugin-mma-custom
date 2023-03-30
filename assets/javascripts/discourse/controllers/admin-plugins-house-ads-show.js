@@ -3,17 +3,19 @@ import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { propertyNotEqual } from "discourse/lib/computed";
 import { bufferedProperty } from "discourse/mixins/buffered-content";
+import Controller, { inject as controller } from "@ember/controller";
+import { not, or } from "@ember/object/computed";
 
-export default Ember.Controller.extend(bufferedProperty("model"), {
-  adminPluginsHouseAds: Ember.inject.controller("adminPlugins.houseAds"),
+export default Controller.extend(bufferedProperty("model"), {
+  adminPluginsHouseAds: controller("adminPlugins.houseAds"),
 
   saving: false,
   savingStatus: "",
 
   nameDirty: propertyNotEqual("buffered.name", "model.name"),
   htmlDirty: propertyNotEqual("buffered.html", "model.html"),
-  dirty: Ember.computed.or("nameDirty", "htmlDirty"),
-  disableSave: Ember.computed.not("dirty"),
+  dirty: or("nameDirty", "htmlDirty"),
+  disableSave: not("dirty"),
 
   actions: {
     save() {
@@ -88,7 +90,7 @@ export default Ember.Controller.extend(bufferedProperty("model"), {
           houseAds.removeObject(model);
           this.transitionToRoute("adminPlugins.houseAds.index");
         })
-        .catch(() => bootbox.alert(I18n.t("generic_error")));
+        .catch(popupAjaxError);
     },
   },
 });
