@@ -229,8 +229,19 @@ export default AdComponent.extend({
     /* if(postNumber == 0){
       return `skyscraper_1`;
     } */
-    let slotNum = getNextSlotNum();
-      return `didna_slot_${slotNum}`;
+    let slotNum = getNextSlotNum();   
+    
+    let id_for_ad_after_nth_post = this.siteSettings.dfd_topic_after_nth_post_id;
+    
+    let finval = id_for_ad_after_nth_post + slotNum; 
+    
+    if( placement == "topic-above-post-stream" || placement == "topic-list-top" ){
+        return this.siteSettings.dfd_topic_above_post_stream_id;
+    }
+
+     // return `didna_slot_${slotNum}`;
+     //return `inline_${slotNum}`;
+     return finval;   
   },
 
   @discourseComputed("placement", "showAd")
