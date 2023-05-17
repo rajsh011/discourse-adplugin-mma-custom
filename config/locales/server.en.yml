@@ -5,6 +5,8 @@ en:
     no_ads_for_personal_messages: "Don't show ads when viewing personal messages"
     no_ads_for_restricted_categories: "Don't show ads in categories that aren't visible to everyone."
     no_ads_for_groups: "Don't show ads to users in these groups."
+    dfd_topic_above_post_stream_id: "Add div ID for  Topic above post stream"
+    dfd_topic_after_nth_post_id: "Add div ID for ads that shows after nth post"
     no_ads_for_categories: "Don't show ads on topic list and topic pages belonging to these categories."
     no_ads_for_tags: "Don't show ads on topic list and topic pages belonging to these tags."
     house_ads_after_nth_topic: 'If "Between topics" house ads are defined, show an ad after every N topic, where N is this value.'

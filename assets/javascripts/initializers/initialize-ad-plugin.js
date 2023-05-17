@@ -41,10 +41,12 @@ export default {
         // Check if the URL contains a specific substring
         let el = document.querySelector(".side-ad-parent");
 
-        if (window.location.href.includes("/t/")) {
-          el.style.display = 'none';
-        } else {
-          el.style.display = 'block';
+        if( el != undefined ){
+          if (window.location.href.includes("/t/") ) {
+            el.style.display = 'none';
+          } else {
+            el.style.display = 'block';
+          }
         }
       });
     });
