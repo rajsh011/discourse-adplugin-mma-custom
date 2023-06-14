@@ -222,7 +222,7 @@ export default AdComponent.extend({
       return globalId;
     }
   },
-
+ 
   @discourseComputed("placement", "postNumber")
   divId(placement, postNumber) {
     //#yg- id for side ads
